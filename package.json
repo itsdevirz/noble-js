@@ -1,0 +1,25 @@
+{
+  "name": "bale-bot-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:webhook": "tsx src/index.ts",
+    "dev:polling": "tsx src/index.ts",
+    "build": "tsc",
+    "start:webhook": "node dist/index.js",
+    "start:polling": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@hono/node-server": "^2.0.1",
+    "@types/node": "^25.6.0",
+    "dotenv": "^17.4.2",
+    "hono": "^4.12.16",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}
