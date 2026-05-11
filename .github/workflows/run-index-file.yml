@@ -1,0 +1,53 @@
+name: Run TypeScript Script
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-ts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Show files
+        run: ls -la
+
+      - name: Install dependencies
+        run: |
+          npm install --verbose
+        timeout-minutes: 3
+
+      - name: Run TypeScript file
+        run: |
+          mkdir -p logs
+
+          npx ts-node src/index.ts \
+            > logs/output.log \
+            2> logs/error.log
+
+      - name: Show output log
+        run: |
+          echo "===== OUTPUT ====="
+          cat logs/output.log || true
+
+      - name: Show error log
+        run: |
+          echo "===== ERRORS ====="
+          cat logs/error.log || true
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: logs/
